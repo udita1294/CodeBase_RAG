@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Codebase RAG", description= "AI Software Engineer for understanding GitHub repositories", version= "0.1.0")
 
