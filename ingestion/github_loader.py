@@ -9,7 +9,7 @@ class GitHubLoader:
         self.base_path.mkdir(parents=True, exist_ok=True)
 
     def clone_repository(self, repo_url:str) -> str:
-        repo_name = repo_url.rsplit('/').split('/')[-1]
+        repo_name = repo_url.rstrip('/').split('/')[-1]
         if repo_name.endswith('.git'):
             repo_name = repo_name[:-4]
         repo_path = self.base_path / repo_name
