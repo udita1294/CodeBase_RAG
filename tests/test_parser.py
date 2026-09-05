@@ -1,17 +1,20 @@
 from ingestion.parser import CodeParser
+from ingestion.extractor import CodeExtractor
 
 code = """
+import redis
+from database import get_user
+
 class AuthService:
-
     def authenticate(self, token):
-        user = verify_token(token)
+        user = get_user(token)
         return user
-
-
-def verify_token(token):
-    return token != ""
 """
 
 parser = CodeParser()
 tree = parser.parse(code, "python")
-print(tree.root_node)
+
+extractor = CodeExtractor()
+results = extractor.extract(tree,code)
+for result in results:
+    print(result)
