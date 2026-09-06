@@ -8,8 +8,9 @@ class CodeChunker:
             if not code_elements:
                 continue
 
-            for element in code_elements:
+            for index, element in enumerate(code_elements):
                 chunk = {
+                    "chunk_id": f"{file['path']}::{element['type']}::{index}",
                     "content": element["content"],
 
                     "metadata": {

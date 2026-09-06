@@ -35,6 +35,7 @@ chunks = chunker.create_chunks(files)
 
 for chunk in chunks:
     print("=" * 60)
+    print(f"CHUNK ID: {chunk['chunk_id']}")
     print("CONTENT:")
     print(chunk["content"])
     print("\nMETADATA:")
