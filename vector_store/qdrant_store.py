@@ -67,12 +67,10 @@ class QdrantStore:
     # --------------------------------------------------
 
     def search(self,query_vector,limit=5):
-        print(f"Searching for: {query_vector}")
         results = self.client.query_points(
             collection_name=self.collection_name,
             query=query_vector.tolist(),
             limit=limit,
             with_payload=True,
         )
-
         return results.points
