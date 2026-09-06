@@ -1,70 +1,21 @@
 from embeddings.embedder import CodeEmbedder
 from vector_store.qdrant_store import QdrantStore
+from ingestion.pipeline import IngestionPipeline
 
 # ==================================================
 # 1. Sample code chunks
 # ==================================================
-chunks = [
-    {
-        "chunk_id": "auth.py::function::0",
+print("=" * 70)
+print("INGESTING REPOSITORY")
+print("=" * 70)
 
-        "content": """
-            def authenticate(token):
-                user = verify_token(token)
-                return user
-                """,
+pipeline = IngestionPipeline()
+repo_url = "https://github.com/psf/requests.git"
+result = pipeline.ingest(repo_url)
+chunks = result["chunks"]
 
-        "metadata": {
-            "file_path": "auth.py",
-            "language": "python",
-            "type": "function",
-            "name": "authenticate",
-            "start_line": 1,
-            "end_line": 3,
-        }
-    },
-
-    {
-        "chunk_id": "redis.py::function::0",
-
-        "content": """
-            def connect_redis():
-                return redis.Redis(
-                    host="localhost"
-                    )
-                """,
-
-        "metadata": {
-            "file_path": "redis.py",
-            "language": "python",
-            "type": "function",
-            "name": "connect_redis",
-            "start_line": 1,
-            "end_line": 4,
-        }
-    },
-
-    {
-        "chunk_id": "math.py::function::0",
-
-        "content": """
-                def fibonacci(n):
-                    if n <= 1:
-                        return n
-                    return fibonacci(n - 1) + fibonacci(n - 2)
-                """,
-
-        "metadata": {
-            "file_path": "math.py",
-            "language": "python",
-            "type": "function",
-            "name": "fibonacci",
-            "start_line": 1,
-            "end_line": 7,
-        }
-    }
-]
-
+print("Files:",len(result["files"]))
+print("Chunks:",len(chunks))
 # ==================================================
 # 2. Create embedding model
 # ==================================================
@@ -89,7 +40,7 @@ print("Embedding dimension:",len(embeddings[0]))
 # ==================================================
 print("Connecting to Qdrant Cloud...")
 
-store = QdrantStore(collection_name="codebase")
+store = QdrantStore(collection_name="requests_codebase")
 
 
 # ==================================================
@@ -112,7 +63,6 @@ query = (
     "Where is user authentication "
     "implemented?"
 )
-
 
 # ==================================================
 # 8. Embed query
