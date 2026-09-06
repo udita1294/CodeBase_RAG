@@ -1,4 +1,15 @@
+import sys
+from pathlib import Path
+
+# Add project root to Python path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+sys.path.insert(0, str(PROJECT_ROOT))
+
 import streamlit as st
+
+from ingestion.indexer import RepositoryIndexer
+from retrieval.rag_pipeline import RAGPipeline
 
 from ingestion.indexer import RepositoryIndexer
 from retrieval.rag_pipeline import RAGPipeline
