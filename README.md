@@ -385,7 +385,3 @@ Codebase RAG explores how **RAG systems can move beyond document question-answer
 The goal is to build an AI Software Engineer capable of understanding the structure and implementation of a real software repository and helping developers navigate it efficiently.
 
 ---
-
-## 📜 License
-
-This project is currently intended for educational and development purposes.
